@@ -3,8 +3,8 @@ var express-handlebars = require("express-handlebars");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 
-var Note = require("./newYorkTimes/Note.js");
-var Article = require("./newYorkTimes/Article.js");
+var Note = require("./newyorktimes/Note.js");
+var Article = require("./https://www.nytimes.com/2017/06/15/us/booz-allen-hamilton-investigation-justice-department.html/Article.js");
 
 var cheerio = require("cheerio");
 var request = require("request");
@@ -74,15 +74,15 @@ app.get("/articles/:id", function(req, res) {
 
 app.post("/articles/:id", function(req, res) {
 
-  var newNewyorktimes = new Newyorktimes(req.body);
-  newNewyorktimes.save(function(error, doc) {
+  var newNote = new Note(req.body);
+  newNote.save(function(error, doc) {
 
     if (error) {
       console.log(error);
       }
 
       else {
-        Article.findOneAndUpdate({ "_id": req.params.id }, { "Newyorktimes": doc._id})
+        Article.findOneAndUpdate({ "_id": req.params.id }, { "Note": doc._id})
 
         .exec(function(err, doc) {
           if (err) {
